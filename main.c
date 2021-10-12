@@ -38,16 +38,13 @@ void main(void) {
     
     while (1) { //infinite while loop - repeat forever
         
-        if (LATDbits.LATD7 == 0)
-        {   LATHbits.LATH3 = 1;} //toggle other LED 
-        else 
-        {   LATHbits.LATH3 = 0;} //toggle other LED
+        while (PORTFbits.RF2 && PORTFbits.RF3); //empty while loop (wait for button press)
         
-        while (PORTFbits.RF2); //empty while loop (wait for button press)
+        if (!PORTFbits.RF2)
+        {   LATDbits.LATD7 = !LATDbits.LATD7;} //toggle LED
         
-        if (!PORTFbits.RF2 && !PORTFbits.RF3)
-        {   LATDbits.LATD7 = !LATDbits.LATD7; //toggle LED
-            LATHbits.LATH3 = !LATHbits.LATH3;} //toggle other LED
+        if (!PORTFbits.RF3)
+        {   LATHbits.LATH3 = !LATHbits.LATH3;} //toggle other LED
 
         __delay_ms(200); // call built in delay function 
     }
