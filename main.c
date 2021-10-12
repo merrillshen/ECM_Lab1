@@ -32,6 +32,10 @@ void main(void) {
     TRISFbits.TRISF2=1; //set TRIS value for pin (input)
     ANSELFbits.ANSELF2=0; //turn off analogue input on pin  
     
+    // setup pin for input (connected to button)
+    TRISFbits.TRISF3=1; //set TRIS value for pin (input)
+    ANSELFbits.ANSELF3=0; //turn off analogue input on pin 
+    
     while (1) { //infinite while loop - repeat forever
         
         if (LATDbits.LATD7 == 0)
@@ -41,7 +45,7 @@ void main(void) {
         
         while (PORTFbits.RF2); //empty while loop (wait for button press)
         
-        if (!PORTFbits.RF2)
+        if (!PORTFbits.RF2 && !PORTFbits.RF3)
         {   LATDbits.LATD7 = !LATDbits.LATD7; //toggle LED
             LATHbits.LATH3 = !LATHbits.LATH3;} //toggle other LED
 
